@@ -12,15 +12,28 @@ import PokemonDetails from "../components/PokemonDetails";
 //   moves: any[];
 // }
 
+export interface PokemonMove {
+  move: { name: string };
+}
+
+interface PokemonDetailQuery {
+  pokemon: {
+    moves: PokemonMove[];
+  };
+}
+
 export default function Details() {
   // const [pokemonData, setPokemonData] = useState<IPokemon>();
 
   const queryParams = new URLSearchParams(window.location.search);
   const name = queryParams.get("name");
 
-  const { loading, error, data } = useQuery(GET_POKEMON_DETAIL, {
-    variables: { name: name },
-  });
+  const { loading, error, data } = useQuery<PokemonDetailQuery>(
+    GET_POKEMON_DETAIL,
+    {
+      variables: { name: name },
+    }
+  );
 
   console.log(data);
 
@@ -30,12 +43,10 @@ export default function Details() {
       <Link to="/">
         <Button colorScheme={"orange"}>Go back to Home</Button>
       </Link>
-      
+
       {error && <Text>Something went wrong!</Text>}
       {loading && <Spinner />}
-      {data && (
-          <PokemonDetails data={data}/>
-      )}
+      {data && <PokemonDetails pokeMoves={data!.pokemon.moves} />}
     </Stack>
-  )
+  );
 }
