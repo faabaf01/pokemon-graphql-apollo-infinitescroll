@@ -1,6 +1,6 @@
 import { useQuery, gql } from "@apollo/client";
 
-const GET_POKEMONS = gql`
+export const GET_POKEMONS = gql`
   query pokemons($limit: Int, $offset: Int) {
     pokemons(limit: $limit, offset: $offset) {
       results {
@@ -17,22 +17,22 @@ id: string;
 name: string;
 image: string;
 }
-interface PokemonQuery {
-  pokemons: {results: Pokemon[]};
+export interface PokemonQuery {
+  pokemons: { results: Pokemon[] };
 }
 
-export const usePokemons = () => {
-    const { error, data, loading } = useQuery<PokemonQuery>(GET_POKEMONS, {
-        variables: {
-            limit: 10,
-            offset: 0,
-        }
-    })
+// export const usePokemons = () => {
+//     const { error, data, loading } = useQuery<PokemonQuery>(GET_POKEMONS, {
+//       variables: {
+//         limit: 20,
+//         offset: 0,
+//       },
+//     });
 
-    return {
-        error,
-        data,
-        loading
-    }
-}
+//     return {
+//         error,
+//         data,
+//         loading
+//     }
+// }
 

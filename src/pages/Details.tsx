@@ -2,8 +2,7 @@ import { Link } from "@tanstack/react-location";
 import { useQuery } from '@apollo/client';
 import Header from "../components/Header";
 import { Button, Spinner, Stack, Text } from "@chakra-ui/react";
-import PokemonProfile from "../components/PokemonDetails";
-import GET_POKEMON_DETAIL from "../queries/GetPokemonDetail";
+import GET_POKEMON_DETAIL from "../graphql/GetPokemonDetail";
 import PokemonDetails from "../components/PokemonDetails";
 
 // interface IPokemon {

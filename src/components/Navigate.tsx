@@ -6,7 +6,7 @@ interface Props {
 
 export default function Navigate({ setPage }: Props) {
   return (
-    <HStack textAlign={"center"} align={"center"}>
+    <HStack textAlign={"center"} align={"center"} color="white">
       <Link
         onClick={() => setPage("pokemons")}
         fontSize={{ base: "13px", sm: "14px", md: "15px", lg: "16px" }}

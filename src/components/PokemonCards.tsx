@@ -56,7 +56,6 @@ console.log(pokemons);
           </Link>)
         })} 
 
-      {/* <PokemonCards data={data} /> */}
 
       </SimpleGrid>
 

@@ -1,29 +1,22 @@
-import { Box, Button, Image, SimpleGrid, Spinner, Stack, Text } from '@chakra-ui/react'
-import { Link } from '@tanstack/react-location'
-import { useQuery } from '@apollo/client';
-import Header from '../components/Header'
-import PokemonCards from '../components/PokemonCards'
-import { Pokemon, usePokemons } from '../hooks/usePokemons';
-import { useEffect, useState } from 'react';
-
+//no need to use usestate and useeffect
+import { Box, Button, HStack, Spacer, Stack, Text } from "@chakra-ui/react";
+import { useState } from "react";
+import Header from "../components/Header";
+import PokemonCards from "../components/PokemonCards";
+import { PokemonQuery } from "../hooks/usePokemons";
+import { useQuery } from "@apollo/client";
+import { GET_POKEMONS } from "../hooks/usePokemons";
 
 export default function Home() {
-  const queryParams = new URLSearchParams(window.location.search);
-  const name = queryParams.get("name");
+  const PAGE_SIZE = 14;
+  const [page, setPage] = useState(0);
 
-  const {data, loading, error} = usePokemons();
-
-  // const [pokes, setPokes] = useState<Pokemon[]>([]);
-
-  // useEffect(() => {
-  //   console.log(data)
-  //   if (data) {
-  //     return setPokes(data.pokemons.results);
-  //   }
-  // }, []);
-
-// if (error) return <div>Ooops!</div>
-// if (loading) return <div>LOADING....</div>
+  const { data, loading, error } = useQuery<PokemonQuery>(GET_POKEMONS, {
+    variables: {
+      limit: PAGE_SIZE,
+      offset: page * PAGE_SIZE,
+    },
+  });
 
   return (
     <Box maxW={"full"} alignContent={"center"} bg="orange.200">
@@ -35,66 +28,33 @@ export default function Home() {
           p={4}
         >
           Welcome to the Home Page! Choose a Pokemon:
+        </Text>
+      </Stack>
 
-         </Text>
-         </Stack>
+      <HStack justify={"center"}>
+        <Button
+          colorScheme={"red"}
+          disabled={!page}
+          onClick={() => setPage((prev) => prev - 1)}
+        >
+          Previous
+        </Button>
 
-{/* 
-        {pokes.map((p:{id: number; name: string; image: string},i: number)=> {
-            return (
-            <Link key={i} to={`/details?name=${p.name}`}>
-            <Text key={i}>{p.name}</Text>
-            <Image
-                w={{ base: "80px", sm: "90px", lg: "150px" }}
-                h={{ base: "80px", sm: "90px", lg: "150px" }}
-                objectFit={"fill"}
-                src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${
-                  p.id
-                }.png`}
-                alt="pokemon_image"
-              />
-            </Link>)
-          })} */}
-    <SimpleGrid
-      minChildWidth="160px"
-      spacing="40px"
-      justifyItems={"center"}
-      p={10}
-    >
-            {/* {pokes.map((p: {name: string, id:number},i: number)=> {
-            return (
-            <Link key={i} to={`/details?name=${p.name}`}>
-              <Box bg={"honeydew"} rounded={10} >
-              <Box
-              maxW={"300px"}
-              height="200px"
-              p={4}
-              textTransform="capitalize"
-              fontWeight={"bold"}
-            >
-              {p.id}<br />{p.name}
-              
-              <Image
-                w={{ base: "80px", sm: "90px", lg: "150px" }}
-                h={{ base: "80px", sm: "90px", lg: "150px" }}
-                objectFit={"fill"}
-                src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${
-                  p.id
-                }.png`}
-                alt="pokemon_image"
-              />
+        <Spacer />
+        <Box>Page {page + 1}</Box>
+        <Spacer />
 
-              </Box>
+        <Button colorScheme={"red"} onClick={() => setPage((prev) => prev + 1)}>
+          Next
+        </Button>
+      </HStack>
 
-              </Box>
-            </Link>)
-          })}  */}
-{/* {JSON.stringify(data)} */}
-{loading ? (<h1>LOADING...</h1>): (<PokemonCards pokemons={data!.pokemons.results} />)}
-        
-        </SimpleGrid>
-
-
+      {error && <h1>Something went wrong!</h1>}
+      {loading ? (
+        <h1>LOADING...</h1>
+      ) : (
+        <PokemonCards pokemons={data!.pokemons.results} />
+      )}
     </Box>
-  )
+  );
 }
