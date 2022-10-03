@@ -2,7 +2,7 @@ import { Image } from "@chakra-ui/react";
 
 interface Props {}
 
-function PokemonLogo(props: Props) {
+export default function PokemonLogo(props: Props) {
   const {} = props;
 
   return (
@@ -14,5 +14,3 @@ function PokemonLogo(props: Props) {
     />
   );
 }
-
-export default PokemonLogo;

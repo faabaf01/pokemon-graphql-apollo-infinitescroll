@@ -1,22 +1,12 @@
 import { Box, Image, SimpleGrid } from "@chakra-ui/react";
 import { Link } from "@tanstack/react-location";
-import { Pokemon } from "../hooks/usePokemons";
-
-// interface Kids {
-//   name: string;
-//   id: number;
-// }
+import { Pokemon } from "../graphql/GetPokemonList";
 
 interface Props {
   pokemons: Pokemon[];
 }
 
 export default function PokemonCards({ pokemons }: Props) {
-  // const { name, id } = data;
-  console.log(pokemons);
-  // console.log(error);
-  // console.log(loading);
-
   return (
     <SimpleGrid
       minChildWidth="160px"
@@ -27,13 +17,21 @@ export default function PokemonCards({ pokemons }: Props) {
       {pokemons.map((p: Pokemon, i: number) => {
         return (
           <Link key={i} to={`/details?name=${p.name}`}>
-            <Box bg={"honeydew"} rounded={10}>
+            <Box
+              bg={"honeydew"}
+              rounded={10}
+              _hover={{
+                background: "white",
+                color: "pink.500",
+              }}
+            >
               <Box
                 maxW={"300px"}
                 height="200px"
                 p={4}
                 textTransform="capitalize"
                 fontWeight={"bold"}
+                fontFamily="mono"
               >
                 {p.id}
                 <br />
