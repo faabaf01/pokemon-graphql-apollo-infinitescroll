@@ -23,7 +23,7 @@ export default function Home() {
   const hasMore = data ? data.pokemons.count > currentLength : true;
 
   return (
-    <Box maxW={"full"} alignContent={"center"} bg="orange.200">
+    <Box maxW={"full"} alignContent={"center"} bg="purple.100">
       <Header />
 
       <Stack align={"center"}>

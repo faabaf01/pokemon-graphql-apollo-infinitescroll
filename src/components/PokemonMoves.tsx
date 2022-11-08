@@ -21,7 +21,7 @@ export default function PokemonMoves({ pokeMoves }: Props) {
         {pokeMoves.map((p: PokemonMove, i: number) => (
           <Box
             key={i}
-            bg="purple.200"
+            bg="yellow.200"
             width="120px"
             rounded="10"
             textAlign={"center"}

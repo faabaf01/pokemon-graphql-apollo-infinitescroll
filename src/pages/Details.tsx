@@ -25,10 +25,10 @@ export default function Details() {
   );
 
   return (
-    <Stack bg={"orange.200"}>
+    <Stack bg={"purple.100"}>
       <Header />
       <Link to="/">
-        <Button colorScheme={"pink"}>Go back to Home</Button>
+        <Button colorScheme={"gray"}>Go back to Home</Button>
       </Link>
 
       {error && <ShowError />}

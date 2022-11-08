@@ -7,7 +7,7 @@ export default function Header() {
   const [page, setPage] = useState(0);
 
   return (
-    <Box bg={"gray.600"}>
+    <Box bg={"purple.700"}>
       <HStack textAlign={"center"} p={8}>
         <PokemonLogo />
         <Spacer />
